@@ -3,7 +3,9 @@ let vaisseau1 = new Sprite("vaisseau", document.body.clientWidth/2, document.bod
 
 let vaisseau2 = new Sprite("avion", 20, 20, "blue", 100, 50);
 
-let vaisseau3 = new Sprite("cop", document.body.clientWidth/2, 10, 10, "yellow", 50, 50);
+let vaisseau3 = new Sprite("cop", document.body.clientWidth/2, 10, 10, "yellow", 50, 20);
+
+
 
 // Première étape : créer l'objet visuel Sprite
 
@@ -12,6 +14,7 @@ let vaisseau3 = new Sprite("cop", document.body.clientWidth/2, 10, 10, "yellow",
 // 2) left => récupérer et définir sa position par rapport au bord gauche 
 // 3) top => récupérer et définir sa position par rapport au bord haut 
 function Sprite(filename, left, top, bgColor, width, borderRadius){
+    // 4 propriétés : filename, left, top, bgColor, width, borderRadius
 
     // this = anglais => celui-ci
 
@@ -36,7 +39,7 @@ function Sprite(filename, left, top, bgColor, width, borderRadius){
     this._bgColor = bgColor;
     this._node.style.backgroundColor = this._bgColor;
 
-    
+   
     this._width = width;
     this._node.style.width = this._width+"px";
 
@@ -74,8 +77,10 @@ function Sprite(filename, left, top, bgColor, width, borderRadius){
     // on définit la valeur de la propriété left de l'objet par le paramètre left reçu lors de la création d'un objet
     this.left = left;
     this.top = top;
+    
 }
 document.onkeydown = function (event){
+        
     
     if(event.code == "ArrowUp"){
         vaisseau1.top  -= 15;    
@@ -114,7 +119,7 @@ document.onkeydown = function (event){
     if(event.code == "Semicolon"){
         vaisseau3.left  += 20;    
     }
-    if(event.code == "KeyK"){
+    if(event.code == "KeyL"){
         vaisseau3.left  -= 20;    
     }
     console.log(event.code);
@@ -148,4 +153,52 @@ document.onkeydown = function (event){
     }
 
 
+    if(vaisseau3.top < 0){
+        vaisseau3.top = 0;
+    }
+    if(vaisseau3.left < 0){
+        vaisseau3.left = 0;
+    }
+    if(vaisseau3.top > document.body.clientHeight-vaisseau3._node.height-25){
+        vaisseau3.top = document.body.clientHeight-vaisseau3._node.height-25;
+    }
+    if(vaisseau3.left > document.body.clientWidth-vaisseau3._node.width-25){
+        vaisseau3.left = document.body.clientWidth-vaisseau3._node.width-25;
+    }
+}
+document.onkeydown = function (event){
+    console.log(event.code);
+    // fonction qui gère le déplacement d'un sprite (tous les vaisseaux) passé en paramètre.
+    moveUp(vaisseau2, );
+    // fonction qui empêche le déplacement d'un sprite passé en paramètre de sortir du body.
+    controlBorders(vaisseau2);
+}
+
+
+
+function move(param){
+    if(event.code == "ArrowUp"){
+       param.top  -= 15;    
+    }
+    if(event.code == "ArrowDown"){
+        param.top += 15;
+    }
+    if(event.code == "ArrowRight"){
+        param.left  += 15;    
+    }
+    if(event.code == "ArrowLeft"){
+        param.left  -= 15;    
+    }
+    if(param.top < 0){
+        param.top = 0;
+    }
+    if(param.left < 0){
+        param.left = 0;
+    }
+    if(param.top > document.body.clientHeight-param._node.height-25){
+        param.top = document.body.clientHeight-param._node.height-25;
+    }
+    if(param.left > document.body.clientWidth-param._node.width-25){
+        param.left = document.body.clientWidth-param._node.width-25;
+    }
 }
